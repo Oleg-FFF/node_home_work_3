@@ -1,0 +1,3 @@
+{"id":1,"type":"phone","brand":"xiaomi","price":300}
+{"id":2,"type":"phone","brand":"apple","price":490}
+{"id":3,"type":"phone","brand":"huawei","price":500}
