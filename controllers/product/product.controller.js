@@ -14,8 +14,11 @@ module.exports = {
         res.json({product})
     },
 
-    updateProduct: (req, res) => {
-        res.end('PUT product')
+    updateProduct: async (req, res) => {
+        const data = req.body;
+        const params = +req.params.id;
+        const updProd = await productService.updateProduct(params, data)
+        res.json({updProd})
     },
 
     deleteProduct: async (req, res) => {

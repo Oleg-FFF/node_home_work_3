@@ -31,7 +31,8 @@ class ProductService {
 
     async getProduct(productId) {
 
-        const allProducts = await this.getAllProducts();
+        const allProducts = await
+            this.getAllProducts();
 
         const searchedProduct = allProducts.find( el => el.id === productId )
 
@@ -44,7 +45,8 @@ class ProductService {
 
     async deleteProduct(productId) {
 
-        let allProducts = await this.getAllProducts();
+        const allProducts = await
+            this.getAllProducts();
 
         const productToDeletingIndex = allProducts.findIndex( el => el.id === productId )
 
@@ -74,7 +76,23 @@ class ProductService {
         }
     }
 
+    async updateProduct(productId, product){
 
+        const allProducts = await
+            this.getAllProducts();
+
+        const productToDeletingIndex = allProducts.findIndex( el => el.id === productId );
+
+
+        if (productToDeletingIndex >= 0) {
+            await this.deleteProduct(productId);
+            await this.createProduct(product);
+            return `Product id ${productId} updated`
+        } else {
+            return 'No product to update'
+        }
+
+    }
     createProduct(product){
 
         const productToPush = JSON.stringify(product);
