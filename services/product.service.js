@@ -2,7 +2,6 @@ const {readFile, appendFile, truncate} = require('fs');
 const path = require('path');
 
 const usersPath = path.join(process.cwd(), 'products.txt');
-console.log(usersPath);
 
 class ProductService {
 
@@ -11,6 +10,7 @@ class ProductService {
 
         return new Promise((resolve, reject) => {
             readFile(usersPath, (error, JSONProducts) => {
+
                 if (error) {
                     reject('Cant read file')
                 }
@@ -24,17 +24,17 @@ class ProductService {
 
                     products.push(JSON.parse(jsonProduct))
                 })
-                console.log(products);
                 resolve(products);
             })
         })
     }
 
     async getProduct(productId) {
+
         const allProducts = await this.getAllProducts();
-        console.log(allProducts);
+
         const searchedProduct = allProducts.find( el => el.id === productId )
-        console.log(searchedProduct);
+
         if (!!searchedProduct) {
             return searchedProduct
         } else {
@@ -43,21 +43,25 @@ class ProductService {
     }
 
     async deleteProduct(productId) {
-        let allProducts = await this.getAllProducts();
-        console.log(allProducts);
 
-        let productToDeletingIndex = allProducts.findIndex( el => el.id === productId )
-        console.log(productToDeletingIndex);
+        let allProducts = await this.getAllProducts();
+
+        const productToDeletingIndex = allProducts.findIndex( el => el.id === productId )
 
         if (productToDeletingIndex >= 0) {
             allProducts.splice(productToDeletingIndex, 1)
+
             const newArr=allProducts
-            console.log(newArr);
-            truncate(usersPath, 0, () => (console.log('cleared')))
+
+            truncate(usersPath, 0, () => (console.log('cleared')));
+
             return new Promise((resolve, reject) => {
                 for (const prod of newArr) {
+
                     const prodToRewrite = JSON.stringify(prod)
+
                     appendFile(usersPath, `\n${prodToRewrite}`, (err) => {
+
                         if (err) {
                             reject('Cant delete product')
                         }
@@ -72,6 +76,7 @@ class ProductService {
 
 
     createProduct(product){
+
         const productToPush = JSON.stringify(product);
 
         return new Promise((resolve, reject) => {
