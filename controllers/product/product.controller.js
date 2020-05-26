@@ -2,14 +2,14 @@ const {productService} = require('../../services/index')
 
 module.exports = {
     getAllProducts: async (req, res) => {
-        let products = await productService.getAllProducts();
+        const products = await productService.getAllProducts();
         res.json({products});
     },
 
     getProduct: async (req, res) => {
         const params = +req.params.id;
 
-        let product = await productService.getProduct(params);
+        const product = await productService.getProduct(params);
 
         res.json({product})
     },
@@ -20,7 +20,7 @@ module.exports = {
 
     deleteProduct: async (req, res) => {
         const params = +req.params.id;
-        let delProd = await productService.deleteProduct(params)
+        const delProd = await productService.deleteProduct(params)
         res.json({delProd})
     },
 

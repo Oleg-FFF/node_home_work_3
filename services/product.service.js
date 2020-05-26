@@ -1,10 +1,5 @@
-const {readFile, appendFile, unlink, truncate} = require('fs');
+const {readFile, appendFile, truncate} = require('fs');
 const path = require('path');
-
-let allMyProducts = [
-    {id:1,type:"phone",brand:"xiaomi",price:300},
-    {id:2,type:"watch",brand:"apple",price:200}
-]
 
 const usersPath = path.join(process.cwd(), 'products.txt');
 console.log(usersPath);
@@ -36,9 +31,9 @@ class ProductService {
     }
 
     async getProduct(productId) {
-        let allProducts = await this.getAllProducts();
+        const allProducts = await this.getAllProducts();
         console.log(allProducts);
-        let searchedProduct = allProducts.find( el => el.id === productId )
+        const searchedProduct = allProducts.find( el => el.id === productId )
         console.log(searchedProduct);
         if (!!searchedProduct) {
             return searchedProduct
@@ -56,12 +51,12 @@ class ProductService {
 
         if (productToDeletingIndex >= 0) {
             allProducts.splice(productToDeletingIndex, 1)
-            let newArr=allProducts
+            const newArr=allProducts
             console.log(newArr);
             truncate(usersPath, 0, () => (console.log('cleared')))
             return new Promise((resolve, reject) => {
-                for (let prod of newArr) {
-                    let prodToRewrite = JSON.stringify(prod)
+                for (const prod of newArr) {
+                    const prodToRewrite = JSON.stringify(prod)
                     appendFile(usersPath, `\n${prodToRewrite}`, (err) => {
                         if (err) {
                             reject('Cant delete product')
