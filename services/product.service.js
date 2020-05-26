@@ -82,9 +82,10 @@ class ProductService {
             this.getAllProducts();
 
         const productToDeletingIndex = allProducts.findIndex( el => el.id === productId );
+        const checkId = productId === product.id;
 
 
-        if (productToDeletingIndex >= 0) {
+        if (productToDeletingIndex >= 0 && checkId) {
             await this.deleteProduct(productId);
             await this.createProduct(product);
             return `Product id ${productId} updated`
@@ -93,7 +94,7 @@ class ProductService {
         }
 
     }
-    createProduct(product){
+    async createProduct(product){
 
         const productToPush = JSON.stringify(product);
 
@@ -102,7 +103,7 @@ class ProductService {
                 if (err) {
                     reject('Cant write product')
                 }
-                resolve()
+                resolve(`Product ID ${product.id} created`)
             })
         })
     }

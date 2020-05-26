@@ -1,9 +1,13 @@
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
     console.log(req.body);
     try {
+        const productFunc = require('../../services/product.service')
         const {id, type, brand, price} = req.body;
+        const allProducts = await productFunc.getAllProducts();
+        const productToDeletingIndex = allProducts.findIndex( el => el.id === id );
+
         console.log('______________________________________');
-        console.log(id, type, brand, price);
+        console.log(id, type, brand, price, productToDeletingIndex);
         console.log('______________________________________');
 
 
@@ -19,9 +23,13 @@ module.exports = (req, res, next) => {
             throw new Error('Brand is not valid')
         }
 
+        if (productToDeletingIndex >= 0) {
+            throw new Error('Product already exist')
+        }
+
         next();
 
-    } catch (e) {
-        res.end(e)
+    } catch (Error) {
+        res.json(Error.toString())
     }
 }

@@ -1,4 +1,4 @@
-
-{"id":1,"type":"phone","brand":"xiaomi","price":300}
-{"id":3,"type":"phone","brand":"xxxxxx","price":700}
-{"id":3,"type":"phone","brand":"xxxxxx","price":700}
+{"id":1,"type":"phone","brand":"apple","price":700}
+{"id":3,"type":"phone","brand":"xiaomi","price":800}
+{"id":2,"type":"phone","brand":"realme","price":900}
+{"id":4,"type":"phone","brand":"realme","price":400}

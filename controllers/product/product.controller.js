@@ -29,7 +29,7 @@ module.exports = {
 
     createProduct: async (req, res) => {
         console.log(req.body)
-        await productService.createProduct(req.body);
-        res.end('Post product')
+        const newProd = await productService.createProduct(req.body);
+        res.json({newProd})
     }
 };
